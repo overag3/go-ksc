@@ -201,6 +201,25 @@ type PParams struct {
 	KlgrpFindFromCurVsOnly bool  `json:"KLGRP_FIND_FROM_CUR_VS_ONLY"`
 }
 
+type HostGroupAttributes struct {
+	HostGroupPChunk *HostGroupPChunk `json:"pChunk,omitempty"`
+	PxgRetVal       *int64           `json:"PxgRetVal,omitempty"`
+}
+
+type HostGroupIteratorArray struct {
+	Type           *string         `json:"type,omitempty"`
+	HostGroupValue *HostGroupValue `json:"value,omitempty"`
+}
+
+type HostGroupValue struct {
+	HostGroupID   int64  `json:"id,omitempty"`
+	HostGroupName string `json:"name,omitempty"`
+}
+
+type HostGroupPChunk struct {
+	HostGroupIteratorArray []HostGroupIteratorArray `json:"KLCSP_ITERATOR_ARRAY"`
+}
+
 // FindGroups Finds groups that satisfy conditions from filter pParams, and creates a server-side collection of found groups.
 // Search is performed over the hierarchy
 func (hg *HostGroup) FindGroups(ctx context.Context, params HGParams) (*Accessor, []byte, error) {
