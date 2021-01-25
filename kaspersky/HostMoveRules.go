@@ -123,10 +123,13 @@ type KLHSTMRCustomValue struct {
 	HruleFromUnassigned    bool    `json:"HRULE_FROM_UNASSIGNED,omitempty"`
 	HruleIncludeChildOu    bool    `json:"HRULE_INCLUDE_CHILD_OU,omitempty"`
 	HruleNagentStatus      int64   `json:"HRULE_NAGENT_STATUS,omitempty"`
+	KlhstWksWinHostname    string  `json:"KLHST_WKS_WINHOSTNAME,omitempty"`
 	HruleOSVersions        []int64 `json:"HRULE_OS_VERSIONS"`
 	HruleQueryPart1        string  `json:"HRULE_QUERY_PART1,omitempty"`
+	HruleQueryPart2        string  `json:"HRULE_QUERY_PART2,omitempty"`
 	HruleQueryPart3        string  `json:"HRULE_QUERY_PART3,omitempty"`
 	HruleQueryPart4        string  `json:"HRULE_QUERY_PART4,omitempty"`
+	HruleQueryPart5        string  `json:"HRULE_QUERY_PART5,omitempty"`
 	HruleUserCERTInstalled int64   `json:"HRULE_USER_CERT_INSTALLED,omitempty"`
 	KlhstAdGroup           int64   `json:"KLHST_AD_GROUP,omitempty"`
 	KlhstAdOrgunit         int64   `json:"KLHST_AD_ORGUNIT,omitempty"`
