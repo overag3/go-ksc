@@ -38,20 +38,37 @@ import (
 // The rule will move host which fits KLHST_MR_Query to KLHST_MR_Group
 type HostMoveRules service
 
+type AddRuleParams struct {
+	PRuleInfo *AddPRuleInfo `json:"pRuleInfo,omitempty"`
+}
+
+type AddPRuleInfo struct {
+	KLHSTMRAutoDelete bool            `json:"KLHST_MR_AutoDelete,omitempty"`
+	KLHSTMRCustom     *KLHSTMRCustom  `json:"KLHST_MR_Custom,omitempty"`
+	KlhstMrDN         string          `json:"KLHST_MR_DN,omitempty"`
+	KLHSTMREnabled    bool            `json:"KLHST_MR_Enabled,omitempty"`
+	KLHSTMRGroup      int64           `json:"KLHST_MR_Group,omitempty"`
+	KLHSTMROptions    int64           `json:"KLHST_MR_Options,omitempty"`
+	KLHSTMRQuery      string          `json:"KLHST_MR_Query,omitempty"`
+	KlhstMrSpecial    *KlhstMrSpecial `json:"KLHST_MR_SPECIAL,omitempty"`
+	KLHSTMRType       int64           `json:"KLHST_MR_Type,omitempty"`
+}
+
 // AddRule Creates new extended host moving rule with specified attributes.
-func (hmr *HostMoveRules) AddRule(ctx context.Context, params interface{}) ([]byte, error) {
+func (hmr *HostMoveRules) AddRule(ctx context.Context, params AddRuleParams) (*PxgRetVal, []byte, error) {
 	postData, err := json.Marshal(params)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	request, err := http.NewRequest("POST", hmr.client.Server+"/api/v1.0/HostMoveRules.AddRule", bytes.NewBuffer(postData))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	raw, err := hmr.client.Do(ctx, request, nil)
-	return raw, err
+	pxgRetVal := new(PxgRetVal)
+	raw, err := hmr.client.Do(ctx, request, &pxgRetVal)
+	return pxgRetVal, raw, err
 }
 
 // DeleteRule Removes specified extended host moving rule.
