@@ -55,7 +55,7 @@ type AddPRuleInfo struct {
 }
 
 // AddRule Creates new extended host moving rule with specified attributes.
-func (hmr *HostMoveRules) AddRule(ctx context.Context, params AddRuleParams) (*PxgRetVal, []byte, error) {
+func (hmr *HostMoveRules) AddRule(ctx context.Context, params AddRuleParams) (*PxgValInt, []byte, error) {
 	postData, err := json.Marshal(params)
 	if err != nil {
 		return nil, nil, err
@@ -66,9 +66,9 @@ func (hmr *HostMoveRules) AddRule(ctx context.Context, params AddRuleParams) (*P
 		return nil, nil, err
 	}
 
-	pxgRetVal := new(PxgRetVal)
-	raw, err := hmr.client.Do(ctx, request, &pxgRetVal)
-	return pxgRetVal, raw, err
+	pxgValInt := new(PxgValInt)
+	raw, err := hmr.client.Do(ctx, request, &pxgValInt)
+	return pxgValInt, raw, err
 }
 
 // DeleteRule Removes specified extended host moving rule.
