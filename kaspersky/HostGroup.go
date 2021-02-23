@@ -237,6 +237,53 @@ func (hg *HostGroup) FindGroups(ctx context.Context, params HGParams) (*Accessor
 	return accessor, raw, err
 }
 
+type HostAttributes struct {
+	HostPChunk *HostPChunk `json:"pChunk,omitempty"`
+	PxgRetVal  *int64      `json:"PxgRetVal,omitempty"`
+}
+
+type HostIteratorArray struct {
+	Type      *string    `json:"type,omitempty"`
+	HostValue *HostValue `json:"value,omitempty"`
+}
+
+type HostValue struct {
+	HostDN                  string   `json:"KLHST_WKS_DN,omitempty"`
+	HostGroupID             uint64   `json:"KLHST_WKS_GROUPID,omitempty"`
+	HostCreated             DateTime `json:"KLHST_WKS_CREATED,omitempty"`
+	HostLastVisible         DateTime `json:"KLHST_WKS_LAST_VISIBLE,omitempty"`
+	HostLastInfoUpdate      DateTime `json:"KLHST_WKS_LAST_INFOUDATE,omitempty"`
+	HostStatus              uint8    `json:"KLHST_WKS_STATUS,omitempty"`
+	HostLastUpdate          DateTime `json:"KLHST_WKS_LAST_UPDATE,omitempty"`
+	HostLastNAgentConnected DateTime `json:"KLHST_WKS_LAST_NAGENT_CONNECTED,omitempty"`
+	HostKeepConnection      bool     `json:"KLHST_WKS_KEEP_CONNECTION,omitempty"`
+	HostName                string   `json:"KLHST_WKS_HOSTNAME,omitempty"`
+	HostInstanceID          string   `json:"KLHST_INSTANCEID,omitempty"`
+	HostWinHostname         string   `json:"KLHST_WKS_WINHOSTNAME,omitempty"`
+	HostWinDomain           string   `json:"KLHST_WKS_WINDOMAIN,omitempty"`
+	HostDNSDomain           string   `json:"KLHST_WKS_DNSDOMAIN,omitempty"`
+	HostDNSName             string   `json:"KLHST_WKS_DNSNAME,omitempty"`
+	HostFQDN                string   `json:"KLHST_WKS_FQDN,omitempty"`
+	HostCType               uint8    `json:"KLHST_WKS_CTYPE,omitempty"`
+	HostPType               uint8    `json:"KLHST_WKS_PTYPE,omitpermit"`
+	HostOSName              string   `json:"KLHST_WKS_OS_NAME,omitpermit"`
+	HostOSVerMajor          uint8    `json:"KLHST_WKS_OS_VER_MAJOR,omitpermit"`
+	HostOSVerMinor          uint8    `json:"KLHST_WKS_OS_VER_MINOR,omitpermit"`
+	HostLastFullScan        DateTime `json:"KLHST_WKS_LAST_FULLSCAN,omitpermit"`
+	HostVirusCount          uint64   `json:"KLHST_WKS_VIRUS_COUNT,omitpermit"`
+	HostRTPState            uint8    `json:"KLHST_WKS_RTP_STATE,omitpermit"`
+	HostRTPErrorCode        uint64   `json:"KLHST_WKS_RTP_ERROR_CODE,omitpermit"`
+	HostComment             string   `json:"KLHST_WKS_COMMENT,omitpermit"`
+	HostIPLong              Long     `json:"KLHST_WKS_IP_LONG,omitpermit"`
+	HostConnectIPLong       Long     `json:"KLHST_WKS_CONNECT_IP_LONG,omitpermit"`
+	HostFromUnassigned      bool     `json:"KLHST_WKS_FROM_UNASSIGNED,omitpermit"`
+	HostUncuredCount        Long     `json:"KLHST_WKS_UNCURED_COUNT,omitpermit"`
+}
+
+type HostPChunk struct {
+	HostIteratorArray []HostIteratorArray `json:"KLCSP_ITERATOR_ARRAY"`
+}
+
 // FindHosts Finds hosts that satisfy conditions from filter string wstrFilter, and creates a server-side collection of found hosts.
 // Search is performed over the hierarchy
 func (hg *HostGroup) FindHosts(ctx context.Context, params HGParams) (*Accessor, []byte, error) {
